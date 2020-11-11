@@ -31,7 +31,7 @@ createList()
 
 function createList(){
   let lista = document.getElementsByClassName("color-list");
-    lista.addAttribute("id")
+  
 
   //Grupos de creacion de filas
   let li1 = document.createElement("LI");
@@ -76,7 +76,7 @@ function createList(){
 
 
   //ordenarlas filas
-  lista.appendChild(li1);
+  //lista.appendChild(li1);
   li1.appendChild(btn1);
 
 
