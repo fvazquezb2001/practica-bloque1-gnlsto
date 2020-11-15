@@ -1,5 +1,5 @@
 // CONTENIDO DE LA PRÁCTICA:
-// Vamos a añadir elementos en una lista (con la clase "color-list") con javascript a partir del array aportado en este documento, en la constante "colorList" (ver imagen en el proyecto "ejemplo_lista.png"). 
+// Vamos a añadir elementos en una lista (con la clase "color-list") con javascript a partir del array aportado en este documento, en la constante "colorList" (ver imagen en el proyecto "ejemplo_lista.png").
 
 // Como se puede apreciar en la imagen, cada elemento que esté en una posición par de de la lista tiene que tener la clase "color-item--odd". Esta clase debe añadirse desde javascript, NO haciendo uso del selector css nth-of-type(odd) o similares. NOTA: En este caso vamos a considerar un elemento par pensando en el primer elemento como el 1 no como el 0.
 
@@ -26,100 +26,108 @@
 
 // Buena suerte!
 
-createList()
-
-
-function createList(){
-  let lista = document.getElementsByClassName("color-list");
-  
-
-  //Grupos de creacion de filas
-  let li1 = document.createElement("LI");
-  let btn1= document.createElement("BUTTON");
-  let btn1_1= document.createElement("BUTTON");
-  let btn1_2= document.createElement("BUTTON");
-
-  let li2 = document.createElement("LI");
-  let btn2= document.createElement("BUTTON");
-  let btn2_1= document.createElement("BUTTON");
-  let btn2_2= document.createElement("BUTTON");
-
-  let li3 = document.createElement("LI");
-  let btn3= document.createElement("BUTTON");
-  let btn3_1= document.createElement("BUTTON");
-  let btn3_2= document.createElement("BUTTON");
-
-  let li4 = document.createElement("LI");
-  let btn4= document.createElement("BUTTON");
-  let btn4_1= document.createElement("BUTTON");
-  let btn4_2= document.createElement("BUTTON");
-
-  let li5 = document.createElement("LI");
-  let btn5= document.createElement("BUTTON");
-  let btn5_1= document.createElement("BUTTON");
-  let btn5_2= document.createElement("BUTTON");
-
-  let li6 = document.createElement("LI");
-  let btn6= document.createElement("BUTTON");
-  let btn6_1= document.createElement("BUTTON");
-  let btn6_2= document.createElement("BUTTON");
-
-  let li7 = document.createElement("LI");
-  let btn7= document.createElement("BUTTON");
-  let btn7_1= document.createElement("BUTTON");
-  let btn7_2= document.createElement("BUTTON");
-
-  let li8 = document.createElement("LI");
-  let btn8= document.createElement("BUTTON");
-  let btn8_1= document.createElement("BUTTON");
-  let btn8_2= document.createElement("BUTTON");
-
-
-  //ordenarlas filas
-  //lista.appendChild(li1);
-  li1.appendChild(btn1);
-
-
-
-
-}
-
-
-
-
-
-
 const colorList = [
   {
-    colorName: 'white',
-    hex: '#ffffff'
+    colorName: "white",
+    hex: "#ffffff"
   },
   {
-    colorName: 'red',
-    hex: '#ff0000'
+    colorName: "red",
+    hex: "#ff0000"
   },
   {
-    colorName: 'orange',
-    hex: '#ffa500'
+    colorName: "orange",
+    hex: "#ffa500"
   },
   {
-    colorName: 'yellow',
-    hex: '#ffff00'
+    colorName: "yellow",
+    hex: "#ffff00"
   },
   {
-    colorName: 'orchid',
-    hex: '#da70d6'
+    colorName: "orchid",
+    hex: "#da70d6"
   },
   {
-    colorName: 'pink',
-    hex: '#ffc0cb'
+    colorName: "pink",
+    hex: "#ffc0cb"
   },
   {
-    colorName: 'green',
-    hex: '#008000'
+    colorName: "green",
+    hex: "#008000"
   },
   {
-    colorName: 'silver',
-    hex: '#c0c0c0'
+    colorName: "silver",
+    hex: "#c0c0c0"
   }
 ];
+
+const list = document.querySelector(".color-list");
+
+colorList.forEach(createList);
+
+function createList(colorElement, i) {
+  const itemLi = document.createElement("li");
+
+  const name = document.createElement("div");
+
+  const divColor = document.createElement("div");
+
+  const nextColor = document.createElement("button");
+
+  const backColor = document.createElement("button");
+
+  itemLi.classList.add("color-item");
+  name.classList.add("color-name");
+  divColor.classList.add("color-show");
+  nextColor.classList.add("color-set");
+  backColor.classList.add("color-set");
+  if (i % 2 !== 0) {
+    itemLi.classList.add("color-item--odd");
+  }
+
+  name.textContent = "Color " + colorElement.colorName;
+  divColor.textContent = "Muestra";
+  nextColor.textContent = "Color del siguiente item";
+  backColor.textContent = "Color de pagina";
+
+  divColor.style.backgroundColor = colorElement.hex;
+
+  //Funciones y eventos
+  itemLi.addEventListener("click", e => {
+    e.stopPropagation();
+    alert("color: " + colorElement.colorName);
+  });
+
+  //Color de fondo
+  backColor.addEventListener(
+    "click",
+    event => {
+      event.stopPropagation();
+      document.body.style.backgroundColor = colorElement.hex;
+    },
+    false
+  );
+
+  //Siguiente color
+  nextColor.addEventListener("click", nextColorEle, false);
+  function nextColorEle(evento) {
+    evento.stopPropagation();
+    if (colorList.length - 1 != i) {
+      nextColor.parentNode.nextSibling.style.backgroundColor = colorElement.hex;
+    } else {
+      nextColor.parentNode.parentNode.children[1].style.backgroundColor =
+        colorElement.hex;
+    }
+  }
+
+  //Grupos de creacion de filas
+  itemLi.appendChild(name);
+  itemLi.appendChild(divColor);
+  itemLi.appendChild(nextColor);
+  itemLi.appendChild(backColor);
+  list.appendChild(itemLi);
+
+  document.body.addEventListener("click", () => {
+    alert("body");
+  });
+}
