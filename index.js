@@ -61,10 +61,12 @@ const colorList = [
   }
 ];
 
+//Constante que guarda la lista
 const list = document.querySelector(".color-list");
 
+//Crear la lista
 colorList.forEach(createList);
-
+//Funcion que la crea
 function createList(colorElement, i) {
   const itemLi = document.createElement("li");
 
@@ -76,6 +78,7 @@ function createList(colorElement, i) {
 
   const backColor = document.createElement("button");
 
+  //Añadimos las clases tras crearlas
   itemLi.classList.add("color-item");
   name.classList.add("color-name");
   divColor.classList.add("color-show");
@@ -84,7 +87,7 @@ function createList(colorElement, i) {
   if (i % 2 !== 0) {
     itemLi.classList.add("color-item--odd");
   }
-
+  //Añadimos el texto
   name.textContent = "Color " + colorElement.colorName;
   divColor.textContent = "Muestra";
   nextColor.textContent = "Color del siguiente item";
@@ -93,6 +96,7 @@ function createList(colorElement, i) {
   divColor.style.backgroundColor = colorElement.hex;
 
   //Funciones y eventos
+  //Alerta con el nombre de color
   itemLi.addEventListener("click", e => {
     e.stopPropagation();
     alert("color: " + colorElement.colorName);
